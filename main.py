@@ -92,4 +92,4 @@ if __name__ == "__main__":
     login_twitter(driver, username, password)
     print("Start tweet")
     tweet_text(driver, "test")
-    #close_driver(driver)
+    close_driver(driver)
