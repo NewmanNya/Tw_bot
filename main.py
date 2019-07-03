@@ -87,7 +87,10 @@ if __name__ == "__main__":
     driver = init_driver()
     # UN  and PW
     username ="BotTamako"
-    password ="2bd2c9434b974dc4953f0724be1b3f44d13bddfd08cdaa52b2105524fca42558"
+    f = open("pw.txt","r")   #设置文件对象
+    str = f.read()     #将txt文件的所有内容读入到字符串str中
+    f.close()   #将文件关闭
+    password =str
     print("Start login")
     login_twitter(driver, username, password)
     print("Start tweet")
