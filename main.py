@@ -41,23 +41,21 @@ def close_driver(driver):
 
 
 def login_twitter(driver, username, password):
+    driver.get("https://www.twitter.com")
     # open the web page in the browser:
-    driver.get("https://twitter.com/login")
+    el = driver.find_element_by_css_selector('button.Button.js-login')
+    el.click()
+# fill out the username
+    el = driver.find_element_by_css_selector("input.email-input")
+# "type" in your screen name
+    el.send_keys(username)
+# fill out your password...again, another reason to use the API (with OAuth) and NOT
+# your browser. At the very least, don't hardcode your password into the script
 
-    # find the boxes for username and password
-    username_field = driver.find_element_by_class_name("js-username-field")
-    password_field = driver.find_element_by_class_name("js-password-field")
-
-    # enter your username:
-    username_field.send_keys(username)
-    time.sleep(1)
-
-    # enter your password:
-    password_field.send_keys(password)
-    time.sleep(1)
-
-    # click the "Log In" button:
-    driver.find_element_by_class_name("EdgeButtom--medium").click()
+# "type" in your password
+    driver.find_element_by_css_selector(".LoginForm-password > input").send_keys(password)
+# Submit the form
+    el.submit()
     print("Login in")
 
     return
@@ -87,9 +85,9 @@ if __name__ == "__main__":
     driver = init_driver()
     # UN  and PW
     username ="BotTamako"
-    f = open("pw.txt","r")   #设置文件对象
-    str = f.read()     #将txt文件的所有内容读入到字符串str中
-    f.close()   #将文件关闭
+    f = open("pw.txt","r")   
+    str = f.read()     
+    f.close()  
     password =str
     print("Start login")
     login_twitter(driver, username, password)
